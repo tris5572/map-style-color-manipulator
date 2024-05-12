@@ -1,58 +1,53 @@
+import "./App.css";
+import { ManipulateSelector } from "./ManipulateSelector";
+import { InputArea } from "./InputArea";
 import { useState } from "react";
+import { RepeatCount } from "./RepeatCount";
+import { MANIPULATE_KIND } from "../misc/types";
 import { MANIPULATES } from "../misc/constants";
 
-function ManipulateSelector(props: {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
-  const [selected, setSelected] = useState(MANIPULATES[0].value);
-  return (
-    <div>
-      {MANIPULATES.map((v) => (
-        <label key={v.value}>
-          <input
-            type="radio"
-            value={v.label}
-            checked={v.value === selected}
-            onChange={(e) => {
-              setSelected(v.value);
-              props.handleChange(e);
-            }}
-          />
-          {v.label}
-        </label>
-      ))}
-    </div>
-  );
-}
-
+/**
+ * アプリのメインコンポーネント
+ */
 export function App() {
-  const [repeatCount, setRepeatCount] = useState("1");
   const resultString = "結果の文字列";
+  const [repeatCount, setRepeatCount] = useState("1");
+  const [manipulate, setManipulate] = useState(MANIPULATES[0].value);
 
-  /** 調整内容のラジオボタンが変更されたときに呼び出される */
-  function manipulateChanged(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
+  function manipulateChanged(v: MANIPULATE_KIND) {
+    setManipulate(v);
   }
 
   return (
     <>
-      <label htmlFor="input_area">GL Style JSON:</label>
-      <textarea id="input_area" cols={40} rows={20} />
-      {<ManipulateSelector handleChange={manipulateChanged} />}
-      <label htmlFor="repeat-count">
-        適用回数
-        <input
-          type="number"
-          id="repeat-count"
-          value={repeatCount}
-          size={4}
-          min={1}
-          max={9}
-          onChange={(e) => setRepeatCount(e.target.value)}
-        />
-      </label>
-      <button>変換実行</button>
-      <div>{resultString}</div>
+      <div
+        style={{
+          margin: "1rem 2rem",
+          background: "#FFFA",
+          borderRadius: "8px",
+          display: "flex",
+        }}
+      >
+        <InputArea />
+        <div
+          style={{
+            margin: "0.5rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <ManipulateSelector
+            value={manipulate}
+            valueChanged={manipulateChanged}
+          />
+          <RepeatCount count={repeatCount} setCount={setRepeatCount} />
+          <button style={{ display: "block", padding: "0.2rem 1rem" }}>
+            変換実行
+          </button>
+        </div>
+      </div>
+      <div style={{ margin: "1rem 2rem" }}>{resultString}</div>
     </>
   );
 }
