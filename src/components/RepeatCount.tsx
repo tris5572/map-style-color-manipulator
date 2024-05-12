@@ -1,4 +1,17 @@
+import { useState } from "react";
+
 export function RepeatCount() {
+  const [isError, setIsError] = useState(false);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setIsError(false);
+    const n = Number(e.target.value);
+    if (Number.isNaN(n)) {
+      console.log("setIsError");
+      setIsError(true);
+    }
+  }
+
   return (
     <label
       htmlFor="repeat-count"
@@ -6,13 +19,13 @@ export function RepeatCount() {
     >
       適用回数&nbsp;
       <input
-        type="number"
+        type="text"
         id="repeat-count"
         name="repeat-count"
         size={4}
-        min={1}
-        max={9}
-        defaultValue={"1"}
+        defaultValue={"1.0"}
+        style={{ background: isError ? "#F99" : undefined }}
+        onChange={handleChange}
       />
     </label>
   );
