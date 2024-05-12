@@ -10,6 +10,7 @@ export function InputArea() {
       <textarea
         style={{ fontFamily: "monospace" }}
         id="input_area"
+        name="input_area"
         cols={40}
         rows={10}
       />

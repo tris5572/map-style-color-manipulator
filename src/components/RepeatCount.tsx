@@ -1,9 +1,4 @@
-type Props = {
-  count: string;
-  setCount: (v: string) => void;
-};
-
-export function RepeatCount(props: Props) {
+export function RepeatCount() {
   return (
     <label
       htmlFor="repeat-count"
@@ -13,11 +8,10 @@ export function RepeatCount(props: Props) {
       <input
         type="number"
         id="repeat-count"
-        value={props.count}
+        name="repeat-count"
         size={4}
         min={1}
         max={9}
-        onChange={(e) => props.setCount(e.target.value)}
       />
     </label>
   );
