@@ -2,20 +2,27 @@ import "./App.css";
 import { ManipulateSelector } from "./ManipulateSelector";
 import { InputArea } from "./InputArea";
 import { RepeatCount } from "./RepeatCount";
+import { useState } from "react";
+import { manipulateColor } from "../misc/manipulate";
+import { ManipulateKind } from "../misc/types";
 
 /**
  * アプリのメインコンポーネント
  */
 export function App() {
-  const resultString = "結果の文字列";
+  const [result, setResult] = useState("結果の文字列");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    // const inputText = Object.fromEntries(formData.entries())["input_area"];
+    const values = Object.fromEntries(formData.entries());
+    const inputText = values["input_area"];
+    const manipulate = values["manipulate"] as ManipulateKind;
+    const repeat = Number(values["repeat-count"]);
     // console.log(inputText);
-    console.log(Object.fromEntries(formData.entries()));
+    // console.log(Object.fromEntries(formData.entries()));
+    setResult(manipulateColor(inputText.toString(), manipulate, repeat));
   }
 
   return (
@@ -48,7 +55,7 @@ export function App() {
             </button>
           </div>
         </div>
-        <div style={{ margin: "1rem 2rem" }}>{resultString}</div>
+        <div style={{ margin: "1rem 2rem" }}>{result}</div>
       </form>
     </>
   );

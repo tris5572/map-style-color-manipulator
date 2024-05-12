@@ -12,6 +12,7 @@ export function RepeatCount() {
         size={4}
         min={1}
         max={9}
+        defaultValue={"1"}
       />
     </label>
   );
