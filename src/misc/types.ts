@@ -1,1 +1,1 @@
-export type ManipulateKind = "saturate" | "desaturate";
+export type ManipulateKind = "saturate" | "desaturate" | "darken" | "brighten";
