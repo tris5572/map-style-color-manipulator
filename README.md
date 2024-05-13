@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# map-style-color-manipulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MapLibre Style (Mapbox Style) の Style JSON ファイルに含まれる色をすべて一括で調整する Web アプリです。
 
-Currently, two official plugins are available:
+https://tris5572.github.io/map-style-color-manipulator/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+MapLibre GL JS 等でベクトルタイルを用いた地図を表示する際、スタイルを記述した JSON ファイルを使用することが一般的です。この JSON ファイルには、どのようなデータをどのようなスタイルに設定して描画するかが記されています。このアプリを使えば、 JSON ファイル内の色の彩度または明度を一括して調整できます。
 
-## Expanding the ESLint configuration
+## 使い方
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. 上部のテキストエリアへ、調整元となる JSON ファイルの中身をコピペします。
+2. 調整内容を設定します。（「彩度を下げる」「明度を上げる」等）
+3. 適用回数を設定します。これは調整内容を何回（どの程度）適用するかの数値で、小数点以下も設定可能です。
+4. 変換実行を押下すると、画面下部に調整を行った結果が表示されます。
 
-- Configure the top-level `parserOptions` property like this:
+## モチベーション
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+MapLibre GL JS で地図を表示する際、配布されている Style JSON ファイルを使用することが一般的です（[例えばこのあたり](https://tile.openstreetmap.jp/)）。このスタイルを変更したいとき、主に [Maputnik](https://maputnik.github.io/) を利用して既存の Style JSON ファイルを調整したり、自分でイチから作成したりといった選択肢がありますが、設定数の膨大さによりいずれも困難な作業になります。
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+作者(tris)が自作アプリで地図を表示するとき（例えばこの [Gravel Map](https://tris5572.github.io/gravel-map/)）、全体の彩度を下げたいと考えましたが、すべての色設定を1つ1つ変更していくのは大変すぎるので、一括で変更するこのアプリを作成しました。
+
+## 備考
+
+調整対象とする「色」であることの判定はかなり適当なので、調整できないケースがあるかもしれません。
+
+そのような場合は Issue でお知らせいただければ良いかもしれません。
