@@ -8,10 +8,10 @@ export function InputArea() {
         Input (GL Style JSON)
       </label>
       <textarea
-        style={{ fontFamily: "monospace" }}
+        style={{ fontSize: "small" }}
         id="input_area"
         name="input_area"
-        cols={40}
+        cols={50}
         rows={10}
       />
     </div>

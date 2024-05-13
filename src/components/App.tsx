@@ -20,9 +20,11 @@ export function App() {
     const inputText = values["input_area"];
     const manipulate = values["manipulate"] as ManipulateKind;
     const repeat = Number(values["repeat-count"]);
-    // console.log(inputText);
-    // console.log(Object.fromEntries(formData.entries()));
     setResult(manipulateColor(inputText.toString(), manipulate, repeat));
+  }
+
+  async function copyToClipboard(text: string) {
+    await navigator.clipboard.writeText(text);
   }
 
   return (
@@ -55,7 +57,22 @@ export function App() {
             </button>
           </div>
         </div>
-        <div style={{ margin: "1rem 2rem" }}>{result}</div>
+        <div
+          style={{
+            margin: "1rem 2rem",
+            padding: "0.5rem",
+            background: "#FFF7",
+            borderRadius: "8px",
+          }}
+        >
+          <button
+            style={{ padding: "0.2rem 0.4rem" }}
+            onClick={() => copyToClipboard(result)}
+          >
+            Copy to clipboard
+          </button>
+          <div style={{ fontSize: "small", marginTop: "0.2rem" }}>{result}</div>
+        </div>
       </form>
     </>
   );
